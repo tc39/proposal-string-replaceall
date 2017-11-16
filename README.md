@@ -29,6 +29,16 @@ var withSpaces = queryString.replaceAll('+', ' ');
 
 ## High-level API
 
+`String.prototype.replaceAll(searchValue, replaceValue)`
+
+Proposed semantics:
+
+1. `searchValue` throws if it is a RegExp (there's no reason to use `replaceAll` with a RegExp `searchValue`). Otherwise, the remaining algorithm uses `ToString(searchValue)`.
+
+Alternative 1: Unconditionally use `ToString(searchValue)`, even if `searchValue` is a RegExp. Doesn't seem like a good option since this will break RegExp args in unexpected ways (e.e. `/./.toString()  // "/[.]/"`).
+
+Alternative 2: If `searchValue` is a RegExp, create a clone including the 'g' flag and dispatch to `RegExp.prototype[@@replace]`. Otherwise, use `ToString(searchValue)`.
+
 ## FAQ
 
 ## Illustrative examples
