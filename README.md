@@ -3,8 +3,8 @@
 ## Status
 
 Champion: Mathias Bynens (Google, @mathiasbynens)
-
 This proposal is in stage 0 of [the TC39 process](https://tc39.github.io/process-document/).
+
 
 ## Motivation
 
@@ -18,6 +18,20 @@ var queryString = 'q=query+string+parameters';
 var withSpaces = queryString.replace(/\+/g, ' ');
 ```
 
+This has the disadvantage that special regexp characters must be escaped.
+
+```js
+var windowsStyle = 'windows\\style\\path';
+const replacement = '\\';
+
+// Only replaces the first instance.
+var unixStyle = windowsStyle.replace(replacement, '/');
+// --> "windows/style\path"
+
+// Syntax Error
+unixStyle = windowsStyle.replace(new RegExp(replacement, 'g'), '/');
+```
+
 ## Proposed solution
 
 We propose the addition of a new method to the String prototype - `replaceAll`. This would give developers a straight-forward way to accomplish this common, basic operation.
@@ -27,41 +41,29 @@ var queryString = 'q=query+string+parameters';
 var withSpaces = queryString.replaceAll('+', ' ');
 ```
 
-## High-level API
+It also removes the need to escape special regexp characters.
 
-The proposed signature is the same as the existing `String.prototype.replace` method:
+```js
+var windowsStyle = 'windows\\style\\path';
+const replacement = '\\';
+
+var unixStyle = windowsStyle.replaceAll(replacement, '/');
+// --> "windows/style/path"
+```
+
+## High-level API
 
 `String.prototype.replaceAll(searchValue, replaceValue)`
 
-### `searchValue`
+Proposed semantics:
 
-1. `searchValue` throws if it is a RegExp (there's no reason to use `replaceAll` with a RegExp `searchValue`). Otherwise, the remaining algorithm uses `ToString(searchValue)`. This option can be implemented very efficiently.
+1. `searchValue` throws if it is a RegExp (there's no reason to use `replaceAll` with a RegExp `searchValue`). Otherwise, the remaining algorithm uses `ToString(searchValue)`.
 
-Alternative 1.1: Unconditionally use `ToString(searchValue)`, even if `searchValue` is a RegExp. Doesn't seem like a good option since this will break RegExp args in unexpected ways (e.e. `/./.toString()  // --> "/[.]/"`).
+Alternative 1: Unconditionally use `ToString(searchValue)`, even if `searchValue` is a RegExp. Doesn't seem like a good option since this will break RegExp args in unexpected ways (e.e. `/./.toString()  // "/[.]/"`).
 
-Alternative 1.2: If `searchValue` is a RegExp, create a clone including the 'g' flag and dispatch to `RegExp.prototype[@@replace]`. Otherwise, use `ToString(searchValue)`. There's precedent for this in `RegExp.prototype[@@split]`. This option seems consistent with user expectations; but we lose efficiency & simplicity on the implementation side, and we create an unexpected performance trap since cloning the regexp instance is slow.
-
-### `replaceValue`
-
-2. The algorithm uses `ToString(replaceValue)` and neither implements `GetSubstitution` semantics nor allows callable `replaceValue`. The `replace` function's interface is (perhaps unnecessarily) complex. We can take this opportunity to simplify, resulting in less cognitive load for users & simpler, more efficient implementations for VMs.
-
-Alternative 2.1: As above, but implement `GetSubstitution` for more consistency with `replace`.
-Alternative 2.2: As 2.1, but additionally allow callable `replaceValue` for more consistency with `replace`. Both 2.1 and 2.2 add complexity and overhead to the implementation.
-
-### `RegExp.prototype[@@replaceAll]`
-
-3. There will be no new `RegExp.prototype[@@replaceAll]` function. Depending on the chosen solution for `searchValue`, RegExp arguments either throw or are forwarded to `@@replace`.
-
-## Comparison to other languages
-
-TODO
+Alternative 2: If `searchValue` is a RegExp, create a clone including the 'g' flag and dispatch to `RegExp.prototype[@@replace]`. Otherwise, use `ToString(searchValue)`.
 
 ## FAQ
 
-Q: What are the main benefits? 
-
-A: A simplified API for this common use-case that does not require RegExp knowledge. A way to global-replace strings without having to escape RegExp syntax characters. Possibly improved optimization potential on the VM side.
-
 ## Illustrative examples
 
-TODO
