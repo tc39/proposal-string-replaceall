@@ -69,6 +69,7 @@ Alternative 1.2: If `searchValue` is a RegExp, create a clone including the 'g' 
 2. The algorithm uses `ToString(replaceValue)` and neither implements `GetSubstitution` semantics nor allows callable `replaceValue`. The `replace` function's interface is (perhaps unnecessarily) complex. We can take this opportunity to simplify, resulting in less cognitive load for users & simpler, more efficient implementations for VMs.
 
 Alternative 2.1: As above, but implement `GetSubstitution` for more consistency with `replace`.
+
 Alternative 2.2: As 2.1, but additionally allow callable `replaceValue` for more consistency with `replace`. Both 2.1 and 2.2 add complexity and overhead to the implementation.
 
 ### `RegExp.prototype[@@replaceAll]`
@@ -91,7 +92,3 @@ A: A simplified API for this common use-case that does not require RegExp knowle
 Q: What about adding a `limit` parameter to `replace` instead?
 
 A: This is an awkward interface — because the default limit is 1, the user would have to know how many occurrences already exist, or use something like Infinity.
-
-## Illustrative examples
-
--TODO
