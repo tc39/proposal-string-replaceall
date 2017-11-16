@@ -3,8 +3,8 @@
 ## Status
 
 Champion: Mathias Bynens (Google, @mathiasbynens)
-This proposal is in stage 0 of [the TC39 process](https://tc39.github.io/process-document/).
 
+This proposal is in stage 0 of [the TC39 process](https://tc39.github.io/process-document/).
 
 ## Motivation
 
@@ -33,7 +33,7 @@ The proposed signature is the same as the existing `String.prototype.replace` me
 
 `String.prototype.replaceAll(searchValue, replaceValue)`
 
-Proposed semantics:
+### `searchValue`
 
 1. `searchValue` throws if it is a RegExp (there's no reason to use `replaceAll` with a RegExp `searchValue`). Otherwise, the remaining algorithm uses `ToString(searchValue)`. This option can be implemented very efficiently.
 
@@ -41,10 +41,16 @@ Alternative 1.1: Unconditionally use `ToString(searchValue)`, even if `searchVal
 
 Alternative 1.2: If `searchValue` is a RegExp, create a clone including the 'g' flag and dispatch to `RegExp.prototype[@@replace]`. Otherwise, use `ToString(searchValue)`. There's precedent for this in `RegExp.prototype[@@split]`. This option seems consistent with user expectations; but we lose efficiency & simplicity on the implementation side, and we create an unexpected performance trap since cloning the regexp instance is slow.
 
+### `replaceValue`
+
 2. The algorithm uses `ToString(replaceValue)` and neither implements `GetSubstitution` semantics nor allows callable `replaceValue`. The `replace` function's interface is (perhaps unnecessarily) complex. We can take this opportunity to simplify, resulting in less cognitive load for users & simpler, more efficient implementations for VMs.
 
 Alternative 2.1: As above, but implement `GetSubstitution` for more consistency with `replace`.
-Alternative 2.2: As 2.1, but additionally allow callable `replaceValue` for more consistency with `replace`.
+Alternative 2.2: As 2.1, but additionally allow callable `replaceValue` for more consistency with `replace`. Both 2.1 and 2.2 add complexity and overhead to the implementation.
+
+### `RegExp.prototype[@@replaceAll]`
+
+3. There will be no new `RegExp.prototype[@@replaceAll]` function. Depending on the chosen solution for `searchValue`, RegExp arguments either throw or are forwarded to `@@replace`.
 
 ## FAQ
 
