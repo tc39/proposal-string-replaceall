@@ -2,7 +2,8 @@
 
 ## Status
 
-Champion: Mathias Bynens (Google, @mathiasbynens)
+Champion: Mathias Bynens (Google, @mathiasbynens).
+
 This proposal is in stage 0 of [the TC39 process](https://tc39.github.io/process-document/).
 
 
@@ -87,6 +88,9 @@ Q: What are the main benefits?
 
 A: A simplified API for this common use-case that does not require RegExp knowledge. A way to global-replace strings without having to escape RegExp syntax characters. Possibly improved optimization potential on the VM side.
 
+Q: What about adding a `limit` parameter to `replace` instead?
+
+A: This is an awkward interface — because the default limit is 1, the user would have to know how many occurrences already exist, or use something like Infinity.
 
 ## Illustrative examples
 
