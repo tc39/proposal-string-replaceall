@@ -52,6 +52,8 @@ Alternative 2.1: As above, but implement `GetSubstitution` for more consistency 
 
 Alternative 2.2: As 2.1, but additionally allow callable `replaceValue` for more consistency with `replace`. Both 2.1 and 2.2 add complexity and overhead to the implementation.
 
+Note that if alternative 1.2 is chosen above, then we need to support `GetSubstitution` semantics for `replaceValue` for consistency.
+
 ### `RegExp.prototype[@@replaceAll]`
 
 3. There will be no new `RegExp.prototype[@@replaceAll]` function. Depending on the chosen solution for `searchValue`, RegExp arguments either throw or are forwarded to `@@replace`.
