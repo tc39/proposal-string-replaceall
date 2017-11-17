@@ -19,20 +19,6 @@ var queryString = 'q=query+string+parameters';
 var withSpaces = queryString.replace(/\+/g, ' ');
 ```
 
-This has the disadvantage that special regexp characters must be escaped.
-
-```js
-var windowsStyle = 'windows\\style\\path';
-const replacement = '\\';
-
-// Only replaces the first instance.
-var unixStyle = windowsStyle.replace(replacement, '/');
-// --> "windows/style\path"
-
-// Syntax Error
-unixStyle = windowsStyle.replace(new RegExp(replacement, 'g'), '/');
-```
-
 ## Proposed solution
 
 We propose the addition of a new method to the String prototype - `replaceAll`. This would give developers a straight-forward way to accomplish this common, basic operation.
@@ -42,15 +28,7 @@ var queryString = 'q=query+string+parameters';
 var withSpaces = queryString.replaceAll('+', ' ');
 ```
 
-It also removes the need to escape special regexp characters.
-
-```js
-var windowsStyle = 'windows\\style\\path';
-const replacement = '\\';
-
-var unixStyle = windowsStyle.replaceAll(replacement, '/');
-// --> "windows/style/path"
-```
+It also removes the need to escape special regexp characters (note the unescaped `'+'`).
 
 ## High-level API
 
