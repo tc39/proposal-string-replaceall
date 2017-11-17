@@ -23,14 +23,14 @@ This has the disadvantage that special regexp characters must be escaped.
 
 ```js
 var windowsStyle = 'windows\\style\\path';
-const replacement = '\\';
+const pattern = '\\';
 
 // Only replaces the first instance.
-var unixStyle = windowsStyle.replace(replacement, '/');
+var unixStyle = windowsStyle.replace(pattern, '/');
 // --> "windows/style\path"
 
 // Syntax Error
-unixStyle = windowsStyle.replace(new RegExp(replacement, 'g'), '/');
+unixStyle = windowsStyle.replace(new RegExp(pattern, 'g'), '/');
 ```
 
 ## Proposed solution
@@ -46,9 +46,9 @@ It also removes the need to escape special regexp characters.
 
 ```js
 var windowsStyle = 'windows\\style\\path';
-const replacement = '\\';
+const pattern = '\\';
 
-var unixStyle = windowsStyle.replaceAll(replacement, '/');
+var unixStyle = windowsStyle.replaceAll(pattern, '/');
 // --> "windows/style/path"
 ```
 
