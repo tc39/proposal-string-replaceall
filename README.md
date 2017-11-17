@@ -15,8 +15,8 @@ Currently there is no way to replace all instances of a substring in a string wi
 Currently the most common way of achieving this is to use a global regexp.
 
 ```js
-var queryString = 'q=query+string+parameters';
-var withSpaces = queryString.replace(/\+/g, ' ');
+const queryString = 'q=query+string+parameters';
+const withSpaces = queryString.replace(/\+/g, ' ');
 ```
 
 ## Proposed solution
@@ -24,8 +24,8 @@ var withSpaces = queryString.replace(/\+/g, ' ');
 We propose the addition of a new method to the String prototype - `replaceAll`. This would give developers a straight-forward way to accomplish this common, basic operation.
 
 ```js
-var queryString = 'q=query+string+parameters';
-var withSpaces = queryString.replaceAll('+', ' ');
+const queryString = 'q=query+string+parameters';
+const withSpaces = queryString.replaceAll('+', ' ');
 ```
 
 It also removes the need to escape special regexp characters (note the unescaped `'+'`).
