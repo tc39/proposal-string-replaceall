@@ -19,6 +19,17 @@ const queryString = 'q=query+string+parameters';
 const withSpaces = queryString.replace(/\+/g, ' ');
 ```
 
+This approach has the downside of requiring special RegExp characters to be escaped — note the unescaped `'+'`.
+
+An alternate solution is to combine `String#split` with `Array#join`:
+
+```js
+const queryString = 'q=query+string+parameters';
+const withSpaces = queryString.split('+').join(' ');
+```
+
+This approach avoids any escaping but comes with the overhead of splitting the string into an array of parts only to glue it back together.
+
 ## Proposed solution
 
 We propose the addition of a new method to the String prototype - `replaceAll`. This would give developers a straight-forward way to accomplish this common, basic operation.
