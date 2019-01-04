@@ -4,7 +4,7 @@
 
 Champion: Mathias Bynens (Google, @mathiasbynens).
 
-This proposal is in stage 1 of [the TC39 process](https://tc39.github.io/process-document/).
+This proposal is at stage 1 of [the TC39 process](https://tc39.github.io/process-document/).
 
 
 ## Motivation
@@ -64,7 +64,6 @@ Note that if alternative 1.2 is chosen above, then we need to support `GetSubsti
 * Python [replace](https://www.tutorialspoint.com/python/string_replace.htm) replaces all occurrences, but accepts an optional param to limit the number of replacements.
 * PHP has [str_replace](http://php.net/manual/en/function.str-replace.php) which has an optional limit parameter like python.
 
-
 ## FAQ
 
 Q: What are the main benefits? 
@@ -74,3 +73,7 @@ A: A simplified API for this common use-case that does not require RegExp knowle
 Q: What about adding a `limit` parameter to `replace` instead?
 
 A: This is an awkward interface — because the default limit is 1, the user would have to know how many occurrences already exist, or use something like Infinity.
+
+## TC39 meeting notes
+
+- [November 2017](https://tc39.github.io/tc39-notes/2017-11_nov-28.html#10ih-stringprototypereplaceall-for-stage-1)
