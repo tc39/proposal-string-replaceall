@@ -39,7 +39,7 @@ const queryString = 'q=query+string+parameters';
 const withSpaces = queryString.replaceAll('+', ' ');
 ```
 
-It also removes the need to escape special regexp characters (note the unescaped `'+'`).
+It also removes the need to escape special regexp characters (note the escaped `'+'`).
 
 ## High-level API
 
