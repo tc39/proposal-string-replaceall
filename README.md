@@ -63,6 +63,7 @@ Note that if alternative 1.2 is chosen above, then we need to support `GetSubsti
 * Java has [replaceAll](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#replaceAll(java.lang.String,%20java.lang.String)), accepting a regexp (the actual param is a string, so simply putting your substring as the first param does the same thing we are proposing).
 * Python [replace](https://www.tutorialspoint.com/python/string_replace.htm) replaces all occurrences, but accepts an optional param to limit the number of replacements.
 * PHP has [str_replace](http://php.net/manual/en/function.str-replace.php) which has an optional limit parameter like python.
+* Ruby has [gsub](https://ruby-doc.org/core/String.html#method-i-gsub), accepting a regexp or string, but also accepts a callback block and a hash of match -> replacement pairs.
 
 ## FAQ
 
