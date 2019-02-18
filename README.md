@@ -19,7 +19,7 @@ const queryString = 'q=query+string+parameters';
 const withSpaces = queryString.replace(/\+/g, ' ');
 ```
 
-This approach has the downside of requiring special RegExp characters to be escaped — note the unescaped `'+'`.
+This approach has the downside of requiring special RegExp characters to be escaped — note the escaped `'+'`.
 
 An alternate solution is to combine `String#split` with `Array#join`:
 
@@ -39,7 +39,7 @@ const queryString = 'q=query+string+parameters';
 const withSpaces = queryString.replaceAll('+', ' ');
 ```
 
-It also removes the need to escape special regexp characters (note the escaped `'+'`).
+It also removes the need to escape special regexp characters (note the unescaped `'+'`).
 
 ## High-level API
 
