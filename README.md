@@ -1,4 +1,4 @@
-# String.prototype.replaceAll Proposal
+# `String.prototype.replaceAll` proposal
 
 ## Status
 
@@ -10,7 +10,7 @@ This proposal is at stage 1 of [the TC39 process](https://tc39.github.io/process
 ## Motivation
 
 Currently there is no way to replace all instances of a substring in a string without use of a global regexp.
-`String.prototype.replace` only affects the first occurrence when used with a string argument. There is a lot of evidence that developers are trying to do this in JS — see the [StackOverflow question](https://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript) with thousands of votes.
+`String.prototype.replace` only affects the first occurrence when used with a string argument. There is a lot of evidence that developers are trying to do this in JS — see the [StackOverflow question](https://stackoverflow.com/q/1144783/96656) with thousands of votes.
 
 Currently the most common way of achieving this is to use a global regexp.
 
@@ -53,7 +53,7 @@ The proposed signature is the same as the existing `String.prototype.replace` me
 
 Alternative 1.1: Unconditionally use `ToString(searchValue)`, even if `searchValue` is a RegExp. Doesn't seem like a good option since this will break RegExp args in unexpected ways (e.e. `/./.toString()  // --> "/[.]/"`).
 
-Alternative 1.2: If `searchValue` is a RegExp, create a clone including the 'g' flag and dispatch to `RegExp.prototype[@@replace]`. Otherwise, use `ToString(searchValue)`. There's precedent for this in `RegExp.prototype[@@split]`. This option seems consistent with user expectations; but we lose efficiency & simplicity on the implementation side, and we create an unexpected performance trap since cloning the regexp instance is slow.
+Alternative 1.2: If `searchValue` is a RegExp, create a clone including the `'g'` flag and dispatch to `RegExp.prototype[@@replace]`. Otherwise, use `ToString(searchValue)`. There's precedent for this in `RegExp.prototype[@@split]`. This option seems consistent with user expectations; but we lose efficiency & simplicity on the implementation side, and we create an unexpected performance trap since cloning the regexp instance is slow.
 
 ### `replaceValue`
 
@@ -71,14 +71,14 @@ Note that if alternative 1.2 is chosen above, then we need to support `GetSubsti
 
 ## Comparison to other languages
 
-* Java has [replaceAll](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#replaceAll(java.lang.String,%20java.lang.String)), accepting a regexp (the actual param is a string, so simply putting your substring as the first param does the same thing we are proposing).
-* Python [replace](https://www.tutorialspoint.com/python/string_replace.htm) replaces all occurrences, but accepts an optional param to limit the number of replacements.
-* PHP has [str_replace](http://php.net/manual/en/function.str-replace.php) which has an optional limit parameter like python.
-* Ruby has [gsub](https://ruby-doc.org/core/String.html#method-i-gsub), accepting a regexp or string, but also accepts a callback block and a hash of match -> replacement pairs.
+* Java has [`replaceAll`](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#replaceAll(java.lang.String,%20java.lang.String)), accepting a regexp (the actual param is a string, so simply putting your substring as the first param does the same thing we are proposing).
+* Python [`replace`](https://www.tutorialspoint.com/python/string_replace.htm) replaces all occurrences, but accepts an optional param to limit the number of replacements.
+* PHP has [`str_replace`](http://php.net/manual/en/function.str-replace.php) which has an optional limit parameter like python.
+* Ruby has [`gsub`](https://ruby-doc.org/core/String.html#method-i-gsub), accepting a regexp or string, but also accepts a callback block and a hash of match -> replacement pairs.
 
 ## FAQ
 
-Q: What are the main benefits? 
+Q: What are the main benefits?
 
 A: A simplified API for this common use-case that does not require RegExp knowledge. A way to global-replace strings without having to escape RegExp syntax characters. Possibly improved optimization potential on the VM side.
 
@@ -89,3 +89,12 @@ A: This is an awkward interface — because the default limit is 1, the user wou
 ## TC39 meeting notes
 
 - [November 2017](https://tc39.github.io/tc39-notes/2017-11_nov-28.html#10ih-stringprototypereplaceall-for-stage-1)
+
+## Specification
+
+- [Ecmarkup source](https://github.com/tc39/proposal-string-replace-all/blob/master/spec.html)
+- [HTML version](https://tc39.github.io/proposal-string-replace-all/)
+
+## Implementations
+
+- none yet
