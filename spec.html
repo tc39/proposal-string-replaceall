@@ -38,7 +38,7 @@ contributors: Mathias Bynens
       1. Let _searchString_ be ? ToString(_searchValue_).
       1. Set _escapedPattern_ to EscapeRegExpPattern(_src_, `"g"`).
       1. Set _searchValue_ to ? RegExpCreate(_escapedPattern_, `"g"`).
-    1. Assert: ? IsRegExp(_searchValue_) is *true*.
+    1. Assert: ! IsRegExp(_searchValue_) is *true*.
     1. Let _replacer_ be ? GetMethod(_searchValue_, @@replace).
     1. Return ? Call(_replacer_, _searchValue_, &laquo; _O_, _replaceValue_ &raquo;).
   </emu-alg>
