@@ -41,9 +41,7 @@ contributors: Mathias Bynens
         1. Set _searchValue_ to ? RegExpCreate(_escapedPattern_, `"g"`).
       1. Assert: ? IsRegExp(_searchValue_) is *true*.
       1. Let _replacer_ be ? GetMethod(_searchValue_, @@replace).
-      1. If IsCallable(_replacer_) is *true*, then
-        1. Return ? Call(_replacer_, _searchValue_, &laquo; _O_, _replaceValue_ &raquo;).
-      1. Else, throw a *TypeError* exception.
+      1. Return ? Call(_replacer_, _searchValue_, &laquo; _O_, _replaceValue_ &raquo;).
   </emu-alg>
   <emu-note>
     <p>The `replaceAll` function is intentionally generic; it does not require that its *this* value be a String object. Therefore, it can be transferred to other kinds of objects for use as a method.</p>
