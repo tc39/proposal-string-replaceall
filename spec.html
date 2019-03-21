@@ -34,7 +34,7 @@ Note: OOB fromIndex values (fromIndex >= string.length) are accepted by the algo
 5. Search string for the first occurrence of searchValue s.t. the index within string of the first code unit of the matched substring is >= fromIndex. Let pos be that index if such an occurrence is found; otherwise let pos be -1.
 6. Return pos.
 
-String.p.replaceAll(searchValue, replaceValue)[a]
+String.p.replaceAll(searchValue, replaceValue)
 
 1. Let O be ? RequireObjectCoercible(this value).
 2. If searchValue is neither undefined nor null, then
@@ -48,7 +48,7 @@ String.p.replaceAll(searchValue, replaceValue)[a]
    1. Let replaceValue be ? ToString(replaceValue).
 1. // Collect all matches:
 2. Let searchLength be the length of searchString.
-3. Let advanceBy be max(1, searchLength).[b][c]
+3. Let advanceBy be max(1, searchLength).
 4. Let matchPositions be a new empty List.
 5. Let position be ! StringIndexOf(string, searchString, 0).
 6. Repeat, while position is not -1
@@ -78,8 +78,8 @@ RegExp.p[@@replaceAll](string, replaceValue)
 3. Let flags be ? ToString(? Get(rx, "flags")).
 4. If flags does not contain "g", then
    1. Let flags be the string-concatenation of flags and "g".
-   2. Let C be ? SpeciesConstructor(rx, %RegExp%).[d][e][f]
-   3. Let rx[g][h] be ? Construct(C, « rx, newFlags »).
+   2. Let C be ? SpeciesConstructor(rx, %RegExp%).
+   3. Let rx be ? Construct(C, « rx, newFlags »).
 1. Let replacer be ? GetMethod(rx, @@replace).
 2. Return ? Call(replacer, rx, « string, replaceValue »).
 </pre>
