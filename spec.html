@@ -71,7 +71,7 @@ contributors: Jakob Gruber, Mathias Bynens
           1. Let replacement be GetSubstitution(_searchString_, _string_, _position_, _captures_, *undefined*, _replaceValue_).
       1. Let _stringSlice_ be the substring of _string_ consisting of the code units from _lastPosition_ (inclusive) up through _position_ (exclusive).
       1. Let _result_ be the string-concatenation of _result_, _stringSlice_, and _replacement_.
-      1. Let _lastPosition_ be _position_.
+      1. Let _lastPosition_ be the sum of _position_ and _searchLength_.
     1. If _lastPosition_ &lt; the length of _string_, then
       1. Let _result_ be the string-concatenation of _result_ and the substring of _string_ consisting of the code units from _lastPosition_ (inclusive) up through the final code unit of _string_ (inclusive).
     1. Return _result_.
