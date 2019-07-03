@@ -77,13 +77,26 @@ Note that if alternative 1.2 is chosen above, then we need to support `GetSubsti
 
 ## FAQ
 
-Q: What are the main benefits?
+### What are the main benefits?
 
-A: A simplified API for this common use-case that does not require RegExp knowledge. A way to global-replace strings without having to escape RegExp syntax characters. Possibly improved optimization potential on the VM side.
+A simplified API for this common use-case that does not require RegExp knowledge. A way to global-replace strings without having to escape RegExp syntax characters. Possibly improved optimization potential on the VM side.
 
-Q: What about adding a `limit` parameter to `replace` instead?
+### What about adding a `limit` parameter to `replace` instead?
 
 A: This is an awkward interface — because the default limit is 1, the user would have to know how many occurrences already exist, or use something like Infinity.
+
+### What happens if `searchValue` is the empty string?
+
+`String.prototype.replaceAll` follows the precedent set by `String.prototype.replace`, and returns the input string with the replacement value spliced in between every UCS-2/UTF-16 code unit.
+
+```js
+'x'.replace('', '_');
+// → '_x'
+'xxx'.replace(/(?:)/g, '_');
+// → '_x_x_x_'
+'xxx'.replaceAll('', '_');
+// → '_x_x_x_'
+```
 
 ## TC39 meeting notes
 
