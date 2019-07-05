@@ -70,7 +70,7 @@ Note that if alternative 1.2 is chosen above, then we need to support `GetSubsti
 
 ## Comparison to other languages
 
-* Java has [`replaceAll`](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#replaceAll(java.lang.String,%20java.lang.String)), accepting a regexp (the actual param is a string, so simply putting your substring as the first param does the same thing we are proposing).
+* Java has [`replace`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#replace-java.lang.CharSequence-java.lang.CharSequence-), accepting a `CharSequence` and replacing all occurrences. Java also has [`replaceAll`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#replaceAll-java.lang.String-java.lang.String-) which accepts a regex as the search term (requiring the user to escape special regex characters), again replacing all occurrences by default.
 * Python [`replace`](https://www.tutorialspoint.com/python/string_replace.htm) replaces all occurrences, but accepts an optional param to limit the number of replacements.
 * PHP has [`str_replace`](http://php.net/manual/en/function.str-replace.php) which has an optional limit parameter like python.
 * Ruby has [`gsub`](https://ruby-doc.org/core/String.html#method-i-gsub), accepting a regexp or string, but also accepts a callback block and a hash of match -> replacement pairs.
