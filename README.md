@@ -44,29 +44,15 @@ It also removes the need to escape special regexp characters (note the unescaped
 
 The proposed signature is the same as the existing `String.prototype.replace` method:
 
-`String.prototype.replaceAll(searchValue, replaceValue)`
+```
+String.prototype.replaceAll(searchValue, replaceValue)
+```
 
-### `searchValue`
+Per the current TC39 consensus, `String.prototype.replaceAll` behaves identically to `String.prototype.replace` in all cases, **except** for the case where `searchValue` is a string.
 
-1. `searchValue` throws if it is a RegExp (there's no reason to use `replaceAll` with a RegExp `searchValue`). Otherwise, the remaining algorithm uses `ToString(searchValue)`. This option can be implemented very efficiently.
+In that case, `String.prototype.replace` only replaces a single occurrence of the `searchValue`, whereas `String.prototype.replaceAll` replaces *all* occurrences of the `searchValue` (as if `.split(searchValue).join(replaceValue)` or a global & properly-escaped regular expression had been used).
 
-Alternative 1.1: Unconditionally use `ToString(searchValue)`, even if `searchValue` is a RegExp. Doesn't seem like a good option since this will break RegExp args in unexpected ways (e.e. `/./.toString()  // --> "/[.]/"`).
-
-Alternative 1.2: If `searchValue` is a RegExp, create a clone including the `'g'` flag and dispatch to `RegExp.prototype[@@replace]`. Otherwise, use `ToString(searchValue)`. There's precedent for this in `RegExp.prototype[@@split]`. This option seems consistent with user expectations; but we lose efficiency & simplicity on the implementation side, and we create an unexpected performance trap since cloning the regexp instance is slow.
-
-### `replaceValue`
-
-2. The algorithm uses `ToString(replaceValue)` and neither implements `GetSubstitution` semantics nor allows callable `replaceValue`. The `replace` function's interface is (perhaps unnecessarily) complex. We can take this opportunity to simplify, resulting in less cognitive load for users & simpler, more efficient implementations for VMs.
-
-Alternative 2.1: As above, but implement `GetSubstitution` for more consistency with `replace`.
-
-Alternative 2.2: As 2.1, but additionally allow callable `replaceValue` for more consistency with `replace`. Both 2.1 and 2.2 add complexity and overhead to the implementation.
-
-Note that if alternative 1.2 is chosen above, then we need to support `GetSubstitution` semantics for `replaceValue` for consistency.
-
-### `RegExp.prototype[@@replaceAll]`
-
-3. There will be no new `RegExp.prototype[@@replaceAll]` function. Depending on the chosen solution for `searchValue`, RegExp arguments either throw or are forwarded to `@@replace`.
+Notably, `String.prototype.replaceAll` behaves just like `String.prototype.replace` if `searchValue` is a regular expression, [including if it's a non-global regular expression](https://github.com/tc39/proposal-string-replaceall/issues/16).
 
 ## Comparison to other languages
 
