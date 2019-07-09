@@ -60,7 +60,7 @@ contributors: Jakob Gruber, Mathias Bynens
       1. Append _position_ to the end of _matchPositions_.
       1. Let _position_ be ! StringIndexOf(_string_, _searchString_, _position_ + _advanceBy_).
     <!-- Apply replacements: -->
-    1. Let _lastPosition_ be 0.
+    1. Let _endOfLastMatch_ be 0.
     1. Let _result_ be the empty string value.
     1. For each _position_ in _matchPositions_, do
       1. If _functionalReplace_ is *true*, then
@@ -69,11 +69,11 @@ contributors: Jakob Gruber, Mathias Bynens
           1. Assert: Type(_replaceValue_) is String.
           1. Let _captures_ be a new empty List.
           1. Let replacement be GetSubstitution(_searchString_, _string_, _position_, _captures_, *undefined*, _replaceValue_).
-      1. Let _stringSlice_ be the substring of _string_ consisting of the code units from _lastPosition_ (inclusive) up through _position_ (exclusive).
+      1. Let _stringSlice_ be the substring of _string_ consisting of the code units from _endOfLastMatch_ (inclusive) up through _position_ (exclusive).
       1. Let _result_ be the string-concatenation of _result_, _stringSlice_, and _replacement_.
-      1. Let _lastPosition_ be _position_.
-    1. If _lastPosition_ &lt; the length of _string_, then
-      1. Let _result_ be the string-concatenation of _result_ and the substring of _string_ consisting of the code units from _lastPosition_ (inclusive) up through the final code unit of _string_ (inclusive).
+      1. Let _endOfLastMatch_ be _position_ + _searchLength_.
+    1. If _endOfLastMatch_ &lt; the length of _string_, then
+      1. Let _result_ be the string-concatenation of _result_ and the substring of _string_ consisting of the code units from _endOfLastMatch_ (inclusive) up through the final code unit of _string_ (inclusive).
     1. Return _result_.
   </emu-alg>
 </emu-clause>
