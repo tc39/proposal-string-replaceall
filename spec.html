@@ -43,7 +43,7 @@ contributors: Jakob Gruber, Mathias Bynens
   <emu-alg>
     1. Let _O_ be ? RequireObjectCoercible(*this* value).
     1. If _searchValue_ is neither *undefined* nor *null*, then
-      1. Let _replacer_ be ? GetMethod(_searchValue_, @@replaceAll).
+      1. Let _replacer_ be ? GetMethod(_searchValue_, @@replace).
       2. If _replacer_ is not *undefined*, then
         1. Return ? Call(_replacer_, _searchValue_, « _O_, _replaceValue_ »).
     1. Let _string_ be ? ToString(_O_).
@@ -75,21 +75,5 @@ contributors: Jakob Gruber, Mathias Bynens
     1. If _endOfLastMatch_ &lt; the length of _string_, then
       1. Let _result_ be the string-concatenation of _result_ and the substring of _string_ consisting of the code units from _endOfLastMatch_ (inclusive) up through the final code unit of _string_ (inclusive).
     1. Return _result_.
-  </emu-alg>
-</emu-clause>
-
-<emu-clause id="sec-regexp.prototype-@@replaceall">
-  <h1>RegExp.prototype [ @@replaceAll ] ( _string_, _replaceValue_ )</h1>
-  <p>When the `@@replaceAll` method is called with arguments _string_ and _replaceValue_, the following steps are taken:</p>
-  <emu-alg>
-    1. Let _rx_ be the *this* value.
-    1. If Type(_rx_) is not Object, throw a *TypeError* exception.
-    1. Let _flags_ be ? ToString(? Get(_rx_, `"flags"`)).
-    1. If _flags_ does not contain `"g"`, then
-      1. Let _flags_ be the string-concatenation of _flags_ and `"g"`.
-      1. Let _C_ be ? SpeciesConstructor(_rx_, %RegExp%).
-      1. Let _rx_ be ? Construct(_C_, « _rx_, _newFlags_ »).
-    1. Let _replacer_ be ? GetMethod(_rx_, @@replace).
-    1. Return ? Call(_replacer_, _rx_, « _string_, _replaceValue_ »).
   </emu-alg>
 </emu-clause>
