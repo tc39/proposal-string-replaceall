@@ -92,8 +92,8 @@ A: This is an awkward interface — because the default limit is 1, the user wou
 
 ## Specification
 
-- [Ecmarkup source](https://github.com/tc39/proposal-string-replace-all/blob/master/spec.html)
-- [HTML version](https://tc39.github.io/proposal-string-replace-all/)
+- [Ecmarkup source](https://github.com/tc39/proposal-string-replaceall/blob/master/spec.html)
+- [HTML version](https://tc39.github.io/proposal-string-replaceall/)
 
 ## Implementations
 
