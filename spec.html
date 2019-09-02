@@ -30,7 +30,6 @@ contributors: Jakob Gruber, Mathias Bynens
   <emu-alg>
     1. Assert: Type(_string_) is String.
     1. Assert: Type(_searchValue_) is String.
-    1. Let _length_ be the number of code units in _string_.
     1. Assert: _fromIndex_ is a nonnegative integer.
     1. Search _string_ for the first occurrence of _searchValue_ so that the index within _string_ of the first code unit of the matched substring is &ge; _fromIndex_. Let _pos_ be that index if such an occurrence is found; otherwise let _pos_ be -1.
     1. Return _pos_.
