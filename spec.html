@@ -80,3 +80,25 @@ contributors: Jakob Gruber, Mathias Bynens
     1. Return _result_.
   </emu-alg>
 </emu-clause>
+
+<emu-clause id="sec-string.prototype.matchall">
+  <h1>String.prototype.matchAll ( _regexp_ )</h1>
+  <p>Performs a regular expression match of the String representing the *this* value against _regexp_ and returns an iterator. Each iteration result's value is an Array object containing the results of the match, or *null* if the String did not match.</p>
+  <p>When the `matchAll` method is called, the following steps are taken:</p>
+  <emu-alg>
+    1. Let _O_ be ? RequireObjectCoercible(*this* value).
+    1. If _regexp_ is neither *undefined* nor *null*, then
+      1. <ins>Let _isRegExp_ be ? IsRegExp(_regexp_).</ins>
+      1. <ins>If _isRegExp_ is true, then</ins>
+        1. <ins>Let _flags_ be ? ToString(? Get(_regexp_, `"flags"`)).</ins>
+        1. <ins>If _flags_ does not contain `"g"`, throw a *TypeError* exception.</ins>
+      1. Let _matcher_ be ? GetMethod(_regexp_, @@matchAll).
+      1. If _matcher_ is not *undefined*, then
+        1. Return ? Call(_matcher_, _regexp_, &laquo; _O_ &raquo;).
+    1. Let _S_ be ? ToString(_O_).
+    1. Let _rx_ be ? RegExpCreate(_regexp_, `"g"`).
+    1. Return ? Invoke(_rx_, @@matchAll, &laquo; _S_ &raquo;).
+  </emu-alg>
+  <emu-note>The `matchAll` function is intentionally generic, it does not require that its *this* value be a String object. Therefore, it can be transferred to other kinds of objects for use as a method.</emu-note>
+  <emu-note>Similarly to `String.prototype.split`, `String.prototype.matchAll` is designed to typically act without mutating its inputs.</emu-note>
+</emu-clause>
