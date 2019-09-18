@@ -42,8 +42,12 @@ contributors: Jakob Gruber, Mathias Bynens
   <emu-alg>
     1. Let _O_ be ? RequireObjectCoercible(*this* value).
     1. If _searchValue_ is neither *undefined* nor *null*, then
+      1. Let _isRegExp_ be ? IsRegExp(_searchString_).
+      1. If _isRegExp_ is true, then
+        1. Let _flags_ be ? ToString(? Get(_searchValue_, `"flags"`)).
+        1. If _flags_ does not contain `"g"`, throw a *TypeError* exception.
       1. Let _replacer_ be ? GetMethod(_searchValue_, @@replace).
-      2. If _replacer_ is not *undefined*, then
+      1. If _replacer_ is not *undefined*, then
         1. Return ? Call(_replacer_, _searchValue_, « _O_, _replaceValue_ »).
     1. Let _string_ be ? ToString(_O_).
     1. Let _searchString_ be ? ToString(_searchValue_).
