@@ -44,15 +44,16 @@ It also removes the need to escape special regexp characters (note the unescaped
 
 The proposed signature is the same as the existing `String.prototype.replace` method:
 
-```
+```js
 String.prototype.replaceAll(searchValue, replaceValue)
 ```
 
-Per the current TC39 consensus, `String.prototype.replaceAll` behaves identically to `String.prototype.replace` in all cases, **except** for the case where `searchValue` is a string.
+Per the current TC39 consensus, `String.prototype.replaceAll` behaves identically to `String.prototype.replace` in all cases, **except** for the following two cases:
 
-In that case, `String.prototype.replace` only replaces a single occurrence of the `searchValue`, whereas `String.prototype.replaceAll` replaces *all* occurrences of the `searchValue` (as if `.split(searchValue).join(replaceValue)` or a global & properly-escaped regular expression had been used).
+1. If `searchValue` is a string, `String.prototype.replace` only replaces a single occurrence of the `searchValue`, whereas `String.prototype.replaceAll` replaces *all* occurrences of the `searchValue` (as if `.split(searchValue).join(replaceValue)` or a global & properly-escaped regular expression had been used).
+1. If `searchValue` is a non-global regular expression, `String.prototype.replace` replaces a single match, whereas `String.prototype.replaceAll` throws an exception. This is done to avoid the inherent confusion between the lack of a global flag (which implies "do NOT replace all") and the name of the method being called (which strongly suggests "replace all").
 
-Notably, `String.prototype.replaceAll` behaves just like `String.prototype.replace` if `searchValue` is a regular expression, [including if it's a non-global regular expression](https://github.com/tc39/proposal-string-replaceall/issues/16).
+Notably, `String.prototype.replaceAll` behaves just like `String.prototype.replace` if `searchValue` is a global regular expression.
 
 ## Comparison to other languages
 
@@ -87,7 +88,7 @@ A: This is an awkward interface — because the default limit is 1, the user wou
 ## TC39 meeting notes
 
 - [November 2017](https://tc39.es/tc39-notes/2017-11_nov-28.html#10ih-stringprototypereplaceall-for-stage-1)
-- [March 2019](https://github.com/rwaldron/tc39-notes/blob/master/meetings/2019-03/mar-26.md#stringprototypereplaceall-for-stage-2)
+- [March 2019](https://github.com/tc39/tc39-notes/blob/master/meetings/2019-03/mar-26.md#stringprototypereplaceall-for-stage-2)
 - [July 2019](https://github.com/tc39/tc39-notes/blob/master/meetings/2019-07/july-24.md#stringprototypereplaceall)
 
 ## Specification
