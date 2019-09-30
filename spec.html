@@ -104,3 +104,27 @@ contributors: Jakob Gruber, Mathias Bynens
   <emu-note>The `matchAll` function is intentionally generic, it does not require that its *this* value be a String object. Therefore, it can be transferred to other kinds of objects for use as a method.</emu-note>
   <emu-note>Similarly to `String.prototype.split`, `String.prototype.matchAll` is designed to typically act without mutating its inputs.</emu-note>
 </emu-clause>
+
+<emu-clause id="sec-string.prototype.indexof">
+  <h1>String.prototype.indexOf ( _searchString_ [ , _position_ ] )</h1>
+  <emu-note>
+    <p>If _searchString_ appears as a substring of the result of converting this object to a String, at one or more indices that are greater than or equal to _position_, then the smallest such index is returned; otherwise, -1 is returned. If _position_ is *undefined*, 0 is assumed, so as to search all of the String.</p>
+  </emu-note>
+  <p>The `indexOf` method takes two arguments, _searchString_ and _position_, and performs the following steps:</p>
+  <emu-alg>
+    1. Let _O_ be ? RequireObjectCoercible(*this* value).
+    1. Let _S_ be ? ToString(_O_).
+    1. Let _searchStr_ be ? ToString(_searchString_).
+    1. Let _pos_ be ? ToInteger(_position_).
+    1. Assert: If _position_ is *undefined*, then _pos_ is 0.
+    1. Let _len_ be the length of _S_.
+    1. Let _start_ be min(max(_pos_, 0), _len_).
+    1. Let _searchLen_ be the length of _searchStr_.
+    1. <del>Return the smallest possible integer _k_ not smaller than _start_ such that _k_ + _searchLen_ is not greater than _len_, and for all nonnegative integers _j_ less than _searchLen_, the code unit at index _k_ + _j_ within _S_ is the same as the code unit at index _j_ within _searchStr_; but if there is no such integer _k_, return the value -1.</del>
+    1. <ins>Let _position_ be ! StringIndexOf(_S_, _searchString_, _start_).</ins>
+    1. <ins>Return _position_.</ins>
+  </emu-alg>
+  <emu-note>
+    <p>The `indexOf` function is intentionally generic; it does not require that its *this* value be a String object. Therefore, it can be transferred to other kinds of objects for use as a method.</p>
+  </emu-note>
+</emu-clause>
