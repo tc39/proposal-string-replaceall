@@ -45,7 +45,7 @@ contributors: Jakob Gruber, Mathias Bynens
       1. Let _isRegExp_ be ? IsRegExp(_searchString_).
       1. If _isRegExp_ is true, then
         1. Let _flags_ be ? Get(_searchValue_, *"flags"*).
-        1. If _flags_ is *undefined*, throw a *TypeError* exception.
+        1. Perform ? RequireObjectCoercible(_flags_).
         1. If ? ToString(_flags_) does not contain *"g"*, throw a *TypeError* exception.
       1. Let _replacer_ be ? GetMethod(_searchValue_, @@replace).
       1. If _replacer_ is not *undefined*, then
@@ -92,7 +92,7 @@ contributors: Jakob Gruber, Mathias Bynens
       1. <ins>Let _isRegExp_ be ? IsRegExp(_regexp_).</ins>
       1. <ins>If _isRegExp_ is true, then</ins>
         1. <ins>Let _flags_ be ? Get(_regexp_, *"flags"*).</ins>
-        1. <ins>If _flags_ is *undefined*, throw a *TypeError* exception.</ins>
+        1. <ins>Perform ? RequireObjectCoercible(_flags_).</ins>
         1. <ins>If ? ToString(_flags_) does not contain *"g"*, throw a *TypeError* exception.</ins>
       1. Let _matcher_ be ? GetMethod(_regexp_, @@matchAll).
       1. If _matcher_ is not *undefined*, then
