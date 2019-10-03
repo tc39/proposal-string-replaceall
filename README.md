@@ -4,7 +4,7 @@
 
 Champion: Mathias Bynens (Google, @mathiasbynens).
 
-This proposal is at stage 2 of [the TC39 process](https://tc39.es/process-document/).
+This proposal is at stage 3 of [the TC39 process](https://tc39.es/process-document/).
 
 ## Motivation
 
