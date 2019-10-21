@@ -98,4 +98,4 @@ A: This is an awkward interface — because the default limit is 1, the user wou
 
 ## Implementations
 
-- none yet
+- [Polyfill](https://github.com/zloirock/core-js#stringreplaceall)
