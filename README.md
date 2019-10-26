@@ -98,5 +98,6 @@ A: This is an awkward interface — because the default limit is 1, the user wou
 
 ## Implementations
 
-- [es-shims](https://www.npmjs.com/package/string.prototype.replaceall)
-- [core-js](https://github.com/zloirock/core-js#stringreplaceall)
+- Polyfills:
+    - [core-js](https://github.com/zloirock/core-js#stringreplaceall)
+    - [es-shims](https://github.com/es-shims/String.prototype.replaceAll)
