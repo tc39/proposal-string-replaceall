@@ -32,6 +32,7 @@ contributors: Jakob Gruber, Mathias Bynens
     1. Assert: Type(_searchValue_) is String.
     1. Assert: _fromIndex_ is a nonnegative integer.
     1. Let _len_ be the length of _string_.
+    1. If _searchValue_ is the empty string, and _fromIndex_ <= _len_, return _fromIndex_.
     1. Let _searchLen_ be the length of _searchValue_.
     1. If there exists any integer _k_ such that _fromIndex_ &le; _k_ &le; _len_ - _searchLen_ and for all nonnegative integers _j_ less than _searchLen_, the code unit at index _k_ + _j_ within _string_ is the same as the code unit at index _j_ within _searchValue_, let _pos_ be the smallest (closest to *-&infin;*) such integer. Otherwise, let _pos_ be -1.
     1. Return _pos_.
