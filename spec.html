@@ -48,7 +48,7 @@ contributors: Jakob Gruber, Mathias Bynens
   <emu-alg>
     1. Let _O_ be ? RequireObjectCoercible(*this* value).
     1. If _searchValue_ is neither *undefined* nor *null*, then
-      1. Let _isRegExp_ be ? IsRegExp(_searchString_).
+      1. Let _isRegExp_ be ? IsRegExp(_searchValue_).
       1. If _isRegExp_ is true, then
         1. Let _flags_ be ? Get(_searchValue_, *"flags"*).
         1. Perform ? RequireObjectCoercible(_flags_).
