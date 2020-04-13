@@ -128,7 +128,7 @@ contributors: Jakob Gruber, Mathias Bynens
     1. Let _start_ be min(max(_pos_, 0), _len_).
     1. Let _searchLen_ be the length of _searchStr_.
     1. <del>Return the smallest possible integer _k_ not smaller than _start_ such that _k_ + _searchLen_ is not greater than _len_, and for all nonnegative integers _j_ less than _searchLen_, the code unit at index _k_ + _j_ within _S_ is the same as the code unit at index _j_ within _searchStr_; but if there is no such integer _k_, return the value -1.</del>
-    1. <ins>Let _position_ be ! StringIndexOf(_S_, _searchString_, _start_).</ins>
+    1. <ins>Let _position_ be ! StringIndexOf(_S_, _searchStr_, _start_).</ins>
     1. <ins>Return _position_.</ins>
   </emu-alg>
   <emu-note>
