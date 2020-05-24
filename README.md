@@ -98,8 +98,9 @@ A: This is an awkward interface — because the default limit is 1, the user wou
 
 ## Implementations
 
-- [SpiderMonkey](https://bugzilla.mozilla.org/show_bug.cgi?id=1540021), available in [Firefox Nightly (only)](https://bugzilla.mozilla.org/show_bug.cgi?id=1608168)
+- [SpiderMonkey](https://bugzilla.mozilla.org/show_bug.cgi?id=1540021), shipping in [Firefox 77](https://bugzilla.mozilla.org/show_bug.cgi?id=1608168)
 - [JavaScriptCore](https://bugs.webkit.org/show_bug.cgi?id=202471), shipping in [Safari 13.1](https://webkit.org/blog/10247/new-webkit-features-in-safari-13-1/#javascript-improvements)
+- [V8](https://bugs.chromium.org/p/v8/issues/detail?id=9801), shipping in Chrome 85
 - Polyfills:
     - [core-js](https://github.com/zloirock/core-js#stringreplaceall)
     - [es-shims](https://github.com/es-shims/String.prototype.replaceAll)
