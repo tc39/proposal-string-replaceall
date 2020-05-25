@@ -24,21 +24,23 @@ contributors: Jakob Gruber, Mathias Bynens
 </style>
 
 <emu-clause id="sec-stringindexof" aoid="StringIndexOf">
-  <h1>StringIndexOf ( _string_, _searchValue_, _fromIndex_ )</h1>
-  <p>The abstract operation _StringIndexOf_ performs the following steps:</p>
-  <!-- Note: OOB fromIndex values (fromIndex >= string.length) are accepted by the algorithm. -->
+  <h1>Static Semantics: StringIndexOf ( _string_, _searchValue_, _fromIndex_ )</h1>
+  <p>The abstract operation StringIndexOf takes arguments _string_ (a String), _searchValue_ (a String), and _fromIndex_ (a non-negative integer). It performs the following steps when called:</p>
   <emu-alg>
     1. Assert: Type(_string_) is String.
     1. Assert: Type(_searchValue_) is String.
-    1. Assert: _fromIndex_ is a nonnegative integer.
+    1. Assert: ! IsNonNegativeInteger(_fromIndex_) is *true*.
     1. Let _len_ be the length of _string_.
-    1. If _searchValue_ is the empty string, and _fromIndex_ <= _len_, return _fromIndex_.
+    1. If _searchValue_ is the empty String, and _fromIndex_ &le; _len_, return _fromIndex_.
     1. Let _searchLen_ be the length of _searchValue_.
     1. If there exists any integer _k_ such that _fromIndex_ &le; _k_ &le; _len_ - _searchLen_ and for all nonnegative integers _j_ less than _searchLen_, the code unit at index _k_ + _j_ within _string_ is the same as the code unit at index _j_ within _searchValue_, let _pos_ be the smallest (closest to *-&infin;*) such integer. Otherwise, let _pos_ be -1.
     1. Return _pos_.
   </emu-alg>
   <emu-note>
     <p>If _searchValue_ is empty and _fromIndex_ is less than or equal to the length of _string_, this algorithm returns _fromIndex_. An empty _searchValue_ is effectively found at every position within a string, including after the last code unit.</p>
+  </emu-note>
+  <emu-note>
+    <p>The above algorithm accepts out-of-bounds _fromIndex_ values (where _fromIndex_ &ge; the length of _string_).</p>
   </emu-note>
 </emu-clause>
 
@@ -60,30 +62,30 @@ contributors: Jakob Gruber, Mathias Bynens
     1. Let _searchString_ be ? ToString(_searchValue_).
     1. Let _functionalReplace_ be IsCallable(_replaceValue_).
     1. If _functionalReplace_ is *false*, then
-      1. Let _replaceValue_ be ? ToString(_replaceValue_).
+      1. Set _replaceValue_ to ? ToString(_replaceValue_).
     <!-- Collect all matches: -->
     1. Let _searchLength_ be the length of _searchString_.
     1. Let _advanceBy_ be max(1, _searchLength_).
     1. Let _matchPositions_ be a new empty List.
     1. Let _position_ be ! StringIndexOf(_string_, _searchString_, 0).
-    1. Repeat, while _position_ is not -1
+    1. Repeat, while _position_ is not -1,
       1. Append _position_ to the end of _matchPositions_.
-      1. Let _position_ be ! StringIndexOf(_string_, _searchString_, _position_ + _advanceBy_).
+      1. Set _position_ to ! StringIndexOf(_string_, _searchString_, _position_ + _advanceBy_).
     <!-- Apply replacements: -->
     1. Let _endOfLastMatch_ be 0.
-    1. Let _result_ be the empty string value.
+    1. Let _result_ be the empty String value.
     1. For each _position_ in _matchPositions_, do
       1. If _functionalReplace_ is *true*, then
-          1. Let _replacement_ be ? ToString(? Call(_replaceValue_, *undefined*, « _searchString_, _position_, _string_ »).
+        1. Let _replacement_ be ? ToString(? Call(_replaceValue_, *undefined*, « _searchString_, _position_, _string_ »)).
       1. Else,
-          1. Assert: Type(_replaceValue_) is String.
-          1. Let _captures_ be a new empty List.
-          1. Let _replacement_ be GetSubstitution(_searchString_, _string_, _position_, _captures_, *undefined*, _replaceValue_).
-      1. Let _stringSlice_ be the substring of _string_ consisting of the code units from _endOfLastMatch_ (inclusive) up through _position_ (exclusive).
-      1. Let _result_ be the string-concatenation of _result_, _stringSlice_, and _replacement_.
-      1. Let _endOfLastMatch_ be _position_ + _searchLength_.
+        1. Assert: Type(_replaceValue_) is String.
+        1. Let _captures_ be a new empty List.
+        1. Let _replacement_ be GetSubstitution(_searchString_, _string_, _position_, _captures_, *undefined*, _replaceValue_).
+      1. Let _stringSlice_ be the substring of _string_ consisting of the code units from _endOfLastMatch_ (inclusive) up to _position_ (exclusive).
+      1. Set _result_ to the string-concatenation of _result_, _stringSlice_, and _replacement_.
+      1. Set _endOfLastMatch_ to _position_ + _searchLength_.
     1. If _endOfLastMatch_ &lt; the length of _string_, then
-      1. Let _result_ be the string-concatenation of _result_ and the substring of _string_ consisting of the code units from _endOfLastMatch_ (inclusive) up through the final code unit of _string_ (inclusive).
+      1. Set _result_ to the string-concatenation of _result_ and the substring of _string_ consisting of the code units from _endOfLastMatch_ (inclusive) up through the final code unit of _string_ (inclusive).
     1. Return _result_.
   </emu-alg>
 </emu-clause>
@@ -128,8 +130,8 @@ contributors: Jakob Gruber, Mathias Bynens
     1. Let _start_ be min(max(_pos_, 0), _len_).
     1. Let _searchLen_ be the length of _searchStr_.
     1. <del>Return the smallest possible integer _k_ not smaller than _start_ such that _k_ + _searchLen_ is not greater than _len_, and for all nonnegative integers _j_ less than _searchLen_, the code unit at index _k_ + _j_ within _S_ is the same as the code unit at index _j_ within _searchStr_; but if there is no such integer _k_, return the value -1.</del>
-    1. <ins>Let _position_ be ! StringIndexOf(_S_, _searchStr_, _start_).</ins>
-    1. <ins>Return _position_.</ins>
+    1. <ins>Let _index_ be ! StringIndexOf(_S_, _searchStr_, _start_).</ins>
+    1. <ins>Return _index_.</ins>
   </emu-alg>
   <emu-note>
     <p>The `indexOf` function is intentionally generic; it does not require that its *this* value be a String object. Therefore, it can be transferred to other kinds of objects for use as a method.</p>
