@@ -99,7 +99,7 @@ contributors: Jakob Gruber, Mathias Bynens
     1. Let _O_ be ? RequireObjectCoercible(*this* value).
     1. If _regexp_ is neither *undefined* nor *null*, then
       1. <ins>Let _isRegExp_ be ? IsRegExp(_regexp_).</ins>
-      1. <ins>If _isRegExp_ is true, then</ins>
+      1. <ins>If _isRegExp_ is *true*, then</ins>
         1. <ins>Let _flags_ be ? Get(_regexp_, *"flags"*).</ins>
         1. <ins>Perform ? RequireObjectCoercible(_flags_).</ins>
         1. <ins>If ? ToString(_flags_) does not contain *"g"*, throw a *TypeError* exception.</ins>
