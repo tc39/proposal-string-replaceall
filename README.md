@@ -4,7 +4,7 @@
 
 Champion: Mathias Bynens (Google, @mathiasbynens).
 
-This proposal is at stage 3 of [the TC39 process](https://tc39.es/process-document/).
+This proposal is at stage 4 of [the TC39 process](https://tc39.es/process-document/).
 
 ## Motivation
 
@@ -90,7 +90,7 @@ A: This is an awkward interface — because the default limit is 1, the user wou
 - [November 2017](https://tc39.es/tc39-notes/2017-11_nov-28.html#10ih-stringprototypereplaceall-for-stage-1)
 - [March 2019](https://github.com/tc39/tc39-notes/blob/master/meetings/2019-03/mar-26.md#stringprototypereplaceall-for-stage-2)
 - [July 2019](https://github.com/tc39/tc39-notes/blob/master/meetings/2019-07/july-24.md#stringprototypereplaceall)
-- June 2020
+- [June 2020](https://github.com/tc39/notes/blob/master/meetings/2020-06/june-2.md#stringprototypereplaceall-for-stage-4)
 
 ## Specification
 
