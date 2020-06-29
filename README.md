@@ -8,6 +8,8 @@ This proposal is at stage 4 of [the TC39 process](https://tc39.es/process-docume
 
 ## Motivation
 
+(Also see [our TL;DR explainer](https://v8.dev/features/string-replaceall).)
+
 Currently there is no way to replace all instances of a substring in a string without use of a global regexp.
 `String.prototype.replace` only affects the first occurrence when used with a string argument. There is a lot of evidence that developers are trying to do this in JS — see the [StackOverflow question](https://stackoverflow.com/q/1144783/96656) with thousands of votes.
 
